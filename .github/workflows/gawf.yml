@@ -1,0 +1,29 @@
+name: main_ga_wf
+
+on:
+  push: 
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+
+      - name: Setup Java JDK
+      - uses: actions/setup-java@v4.2.2
+        with:
+          java-version: '17'
+          distribution: 'zulu'
+
+      - name: Checkout repo ${{ GITHUB_HEAD_REF }} 
+      - uses: actions/checkout@v4
+
+      - name: Run maven build process
+        run: |
+          java -version
+          mvn compile
+          mvn package -DskipTests
+          mvn test
