@@ -34,12 +34,14 @@ jobs:
         run: mvn test
         
   test:
+    needs: build
     runs-on: ubuntu-20.04
     steps:          
       - name: Test
         run: echo 'test'
         
   deliver:
+    needs: test
     runs-on: ubuntu-20.04
     steps:
       - name: Deliver
