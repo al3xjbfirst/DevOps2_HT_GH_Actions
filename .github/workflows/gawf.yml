@@ -9,7 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-20.04
-
     steps:
 
       - name: Setup Java JDK
@@ -18,14 +17,30 @@ jobs:
           java-version: '17'
           distribution: 'zulu'
 
-      - name: Checkout repo ${{ github.GITHUB_HEAD_REF }} 
+      - name: Checkout repo ${{ github.github.head_ref }} 
         uses: actions/checkout@v4
 
-      - name: Run maven build process
-        run: |
-          pwd
-          ls -la
-          java -version
-          mvn compile
-          mvn package -DskipTests
-          mvn test
+      - name: Print working directory
+        run: pwd
+      - name: List directory files
+        run: ls -la
+      - name: Print java version
+        run: java -version
+      - name: Maven compile job
+        run: mvn compile
+      - name: Maven package with skip tests
+        run: mvn package -DskipTests
+      - name: Maven test
+        run: mvn test
+        
+  test:
+    runs-on: ubuntu-20.04
+    steps:          
+      - name: Test
+        run: echo 'test'
+        
+  deliver:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Deliver
+        run: echo 'deliver'
